@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Weather App</title>
+    <link rel="stylesheet" href="src/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/bde36a90df.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="border border-white p-3 m-3 rounded-lg main-border">
+        <form id="search-form">
+          <div class="row">
+            <div class="col-8">
+              <form>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control shadow-sm"
+                    placeholder="Search your location..."
+                    autofocus
+                    id="searched-city"
+                  />
+                </div>
+              </form>
+            </div>
+            <div class="col-2">
+              <button
+                type="button"
+                class="btn btn-info shadow-sm"
+                id="current-loc-button"
+              >
+                Current Location
+              </button>
+            </div>
+            <div class="col-2">
+              <button
+                type="button"
+                class="btn btn-secondary shadow-sm"
+                id="search-button"
+              >
+                Search Location
+              </button>
+            </div>
+          </div>
+        </form>
+        <div class="row">
+          <div class="col-sm-3 top-columns">
+            <h1 class="current-city" id="current-location"></h1>
+            <small class="day-time" id="date"></small>
+            <i class="fas fa-sun current-icon"></i>
+          </div>
+          <div class="col-sm-3 top-columns">
+            <h1 class="current-temperature">
+              <span id="current-temp"></span>
+            </h1>
+            <small class="min-max">
+              <strong id="max"></strong><span id="min"></span>
+            </small>
+            <div class="current-info">
+              <p>
+                <i class="fas fa-angle-double-left"></i
+                ><span id="description"></span
+                ><i class="fas fa-angle-double-right"></i>
+              </p>
+              <p>Humidity: <span id="humidity"></span></p>
+              <p>Wind: <span id="wind-speed"></span></p>
+              <p>
+                <svg
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  class="bi bi-arrow-bar-up"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z"
+                  />
+                </svg>
+                <span id="sunrise"></span>
+              </p>
+              <p>
+                <svg
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  class="bi bi-arrow-bar-down"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6z"
+                  />
+                </svg>
+                <span id="sunset"></span>
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-3 top-columns">
+            <img src="images/manypixels_weather_icon.svg" alt="Weather Icon" />
+          </div>
+        </div>
+        <div class="tip">
+          <span class="tip-word">Tip:</span> Today is a good day to go for a 🍸
+          on the beach!
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            <i class="fas fa-sun forecast-icon"></i>
+            <p><strong> 27ºC </strong>| 18ºC</p>
+            <p>Sunday 4th</p>
+          </div>
+          <div class="col-sm">
+            <i class="fas fa-cloud-sun forecast-icon"></i>
+            <p><strong> 22ºC </strong>| 17ºC</p>
+            <p>Monday 5th</p>
+          </div>
+          <div class="col-sm">
+            <i class="fas fa-cloud forecast-icon"></i>
+            <p><strong> 19ºC </strong>| 16ºC</p>
+            <p>Tuesday 6th</p>
+          </div>
+          <div class="col-sm">
+            <i class="fas fa-wind forecast-icon"></i>
+            <p><strong> 18ºC </strong>| 12ºC</p>
+            <p>Wednesday 7th</p>
+          </div>
+          <div class="col-sm">
+            <i class="fas fa-cloud-rain forecast-icon"></i>
+            <p><strong> 17ºC </strong>| 12ºC</p>
+            <p>Thursday 8th</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="src/script.js"></script>
+  </body>
+</html>
